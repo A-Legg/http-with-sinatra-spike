@@ -1,17 +1,51 @@
 require "sinatra/base"
-require "sinatra/reloader"
+
 
 class MyApp < Sinatra::Application
-  register Sinatra::Reloader
+
+
+
 
   def initialize
     super
-    @items = []
+    @items = ["Channa Masala", "Chicken Tikka Masala", "Saag Paneer"]
+
   end
 
   get "/" do
-    "items length: #{@items.length}"
+      "<h1>Hello, Welcome to my restaurant!</h1>"
+      "<a href='/items'>Go to items page</a>"
+
+      erb :index, :locals => {:items => @items}
   end
 
-  run! if app_file == $0
+  get "/items/:identifier" do
+    item = params[:identifier]
+    erb :items, :locals => {:item => item}
+  end
+
+  get "/items/?" do
+    filter = params[:filter]
+    @filtered_items = @items
+
+    @filtered_items = @items.select {|x|x.include?(filter)} unless filter == nil
+
+
+    "<a href='/items/new'>New Items>"
+
+    erb :items
+  end
+
+
+
+
+
+
+
 end
+
+
+
+
+
+
