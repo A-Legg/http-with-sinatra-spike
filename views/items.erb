@@ -1,0 +1,9 @@
+
+<ul>
+  <% @filtered_items.each_with_index do |item, index| %>
+  <li>Dish is named:  <a href="/items/<%= index %>"><%= item %></a></li>
+
+
+<% end %>
+
+</ul>
